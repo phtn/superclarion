@@ -36,6 +36,7 @@ export default props => (
       width={props.width} 
       navbarHeight={props.navbarHeight} 
       navbarOpacity={props.navbarOpacity}
+      scrollPositionY={props.scrollPositionY}
     />
  </div>
 )
