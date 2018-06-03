@@ -24,6 +24,7 @@ class App extends Component {
 
     window.addEventListener('scroll', ()=> {
       this.props.updateScrollPositionY(window.scrollY)
+      window.scrollY >= 300 ? this.toggleNavbar(0,0) : this.toggleNavbar(.15,1)
     })
 
     console.log(this.props.scrollPositionY)
@@ -31,6 +32,11 @@ class App extends Component {
     // tests
     let nav = document.querySelector('.navbar').getBoundingClientRect()
     console.log(nav.top)
+  }
+
+  toggleNavbar(height, opacity){
+    this.props.updateNavbarHeight(height)
+    this.props.updateNavbarOpacity(opacity)
   }
   componentWillUnmount(){
     window.removeEventListener('resize', ()=> {

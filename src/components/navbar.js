@@ -26,7 +26,7 @@ export default props => (
     update={{
       height: [props.navbarHeight],
       opacity: [props.navbarOpacity],
-      timing: {duration: 500}
+      timing: {duration: 300}
     }}
   >
   {({height, opacity})=> (
