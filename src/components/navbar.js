@@ -85,7 +85,7 @@ export default props => (
             
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <img src={Bed} alt='' height={30} style={{position: 'absolute', marginTop: -30}}/>
-              <span style={{paddingTop: 20}}>{item}</span>
+              <span style={{paddingTop: 20, fontFamily: 'Playfair Display SC, serif'}}>{item}</span>
             </div>
             
           </div>
