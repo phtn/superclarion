@@ -40,9 +40,9 @@ export default props => (
       <span style={{fontFamily: 'Raleway, sans-serif', fontWeight: 300, fontSize: 20, lineHeight: '50px'}}>Clarion Inn & Suites</span>
       <span style={{fontFamily: 'Raleway, sans-serif', fontWeight: 300, fontSize: 20, lineHeight: '50px'}}> of New Hope</span>
 
-      <span style={{float: 'right', margin:20 }}>
-        <img src={MenuIcon} height={15} alt=''/>
-      </span>
+        <button style={{float: 'right', margin: 0, border: '0px', height: '100%', width: 50, cursor: 'pointer'}} className='menu-icon'>
+          <img src={MenuIcon} height={15} alt=''/>
+        </button>
     </div>
   )}
   </Animate>

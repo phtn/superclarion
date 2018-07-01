@@ -12,6 +12,8 @@ import {
   UPDATE_HEADER_TRANSLATE_Y
 } from './actions/actionTypes'
 
+import './App.css'
+
 class App extends Component {
   componentDidMount(){
     // Hero Image Resize
