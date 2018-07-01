@@ -81,7 +81,7 @@ class App extends Component {
 
         <Midbar />
 
-        <div style={{height: 500, backgroundColor: '#333'}}></div>
+        <div style={{height: this.props.height, backgroundColor: '#333'}}></div>
       </div>
     );
   }

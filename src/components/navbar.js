@@ -4,6 +4,12 @@ import Animate from 'react-move/Animate'
 
 // icons
 import Bed from '../assets/icons/bed.svg'
+import Eat from '../assets/icons/eat.svg'
+import Amenities from '../assets/icons/amenities.svg'
+import Event from '../assets/icons/event.svg'
+import Group from '../assets/icons/group.svg'
+import Discover from '../assets/icons/discover.svg'
+
 // import { cubicOut } from 'd3-ease'
 
 
@@ -35,7 +41,7 @@ const styles = {
   }
 }
 
-const arr = ['Rooms & Suites', 'Eat & Drink', 'Amenities', 'Events', 'Groups', 'Discover']
+const arr = [{name:'Rooms & Suites', icon: Bed}, {name:'Eat & Drink', icon: Eat}, {name: 'Amenities', icon: Amenities}, {name: 'Events', icon: Event}, {name: 'Groups', icon: Group}, {name: 'Discover', icon: Discover}]
 
 export default props => (
   <Animate
@@ -62,11 +68,11 @@ export default props => (
       className='navbar'
     >
 
-      <div style={{height: '100%'}}>
+      <div style={{height: '100%'}} >
         
         {arr.map(item => (
           <div 
-            key={arr.indexOf(item)}
+            key={item.name}
             style={Object.assign({}, {
               display: 'inline-block', 
               float: 'left', 
@@ -83,9 +89,9 @@ export default props => (
             })}
           >
             
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <img src={Bed} alt='' height={30} style={{position: 'absolute', marginTop: -30}}/>
-              <span style={{paddingTop: 20, fontFamily: 'Playfair Display SC, serif'}}>{item}</span>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className='navbar-item'>
+              <img src={item.icon} alt='' height={30} style={{position: 'absolute', marginTop: -30}}/>
+              <span style={{paddingTop: 20, fontFamily: 'Playfair Display SC, serif'}}>{item.name}</span>
             </div>
             
           </div>

@@ -16,7 +16,6 @@ const styles = {
     width: window.innerWidth,
     position: 'fixed',
     height: 50,
-    cursor: 'pointer'
   }
 }
 export default props => (
