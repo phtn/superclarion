@@ -7,7 +7,9 @@ import {
   UPDATE_WIDTH,
   UPDATE_NAVBAR_HEIGHT,
   UPDATE_NAVBAR_OPACITY,
-  UPDATE_SCROLL_POSITION_Y
+  UPDATE_SCROLL_POSITION_Y,
+  UPDATE_MENUBAR_HEIGHT,
+  UPDATE_HEADER_TRANSLATE_Y
 } from './actions/actionTypes'
 
 class App extends Component {
@@ -16,15 +18,22 @@ class App extends Component {
     window.addEventListener('resize', ()=> {
       this.props.updateHeight(window.innerHeight)
       this.props.updateWidth(window.innerWidth)
+      this.toggleDesktopView(window.innerWidth)
     })
 
     // Navbar properties
     this.props.updateNavbarHeight(.15)
     this.props.updateNavbarOpacity(1)
 
+    // Header properties
+    this.toggleDesktopView(window.innerWidth)
+    
+
     window.addEventListener('scroll', ()=> {
       this.props.updateScrollPositionY(window.scrollY)
-      window.scrollY >= 300 ? this.toggleNavbar(0,0) : this.toggleNavbar(.15,1)
+      window.scrollY >= 300 ? this.toggleNavbar(0,0) : window.innerWidth > 800 ? this.toggleNavbar(.15,1) : this.toggleNavbar(0,0)
+      window.scrollY >= 300 ? this.props.updateMenubarHeight(1) : window.innerWidth < 800 ? this.props.updateMenubarHeight(1) : this.props.updateMenubarHeight(0)
+      // this.toggleDesktopView()
     })
 
     console.log(this.props.scrollPositionY)
@@ -37,6 +46,17 @@ class App extends Component {
   toggleNavbar(height, opacity){
     this.props.updateNavbarHeight(height)
     this.props.updateNavbarOpacity(opacity)
+  }
+  toggleDesktopView(width){
+    if (width <= 800){
+      this.toggleNavbar(0,0)
+      this.props.updateHeaderTranslateY(-150)
+      this.props.updateMenubarHeight(1)
+    } else {
+      this.toggleNavbar(.15,1)
+      this.props.updateHeaderTranslateY(0)
+      this.props.updateMenubarHeight(0)
+    }
   }
   componentWillUnmount(){
     window.removeEventListener('resize', ()=> {
@@ -53,9 +73,13 @@ class App extends Component {
           navbarHeight={this.props.navbarHeight}
           navbarOpacity={this.props.navbarOpacity}
           scrollPositionY={this.props.scrollPositionY}
+          menubarHeight={this.props.menubarHeight}
+          headerTranslateY={this.props.headerTranslateY}
         />
 
         <Midbar />
+
+        <div style={{height: 500, backgroundColor: '#333'}}></div>
       </div>
     );
   }
@@ -66,7 +90,9 @@ const mapStateToProps = (state) => ({
   width: state.width,
   navbarHeight: state.navbarHeight,
   navbarOpacity: state.navbarOpacity,
-  scrollPositionY: state.scrollPositionY
+  scrollPositionY: state.scrollPositionY,
+  menubarHeight: state.menubarHeight,
+  headerTranslateY: state.headerTranslateY
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -75,6 +101,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateNavbarHeight: (payload) => dispatch({type: UPDATE_NAVBAR_HEIGHT, payload}),
   updateNavbarOpacity: (payload) => dispatch({type: UPDATE_NAVBAR_OPACITY, payload}),
   updateScrollPositionY: (payload) => dispatch({type: UPDATE_SCROLL_POSITION_Y, payload}),
+  updateMenubarHeight: (payload) => dispatch({type: UPDATE_MENUBAR_HEIGHT, payload}),
+  updateHeaderTranslateY: (payload) => dispatch({type: UPDATE_HEADER_TRANSLATE_Y, payload})
 })
 
 

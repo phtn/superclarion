@@ -4,7 +4,7 @@ const styles = {
   container: {
     height: 300,
     backgroundColor: 'rgba(254,254,254,1)',
-    // backgroundImage: `url(${Pattern})`,
+    backgroundImage: `url(${Pattern})`,
     backgroundRepeat: 'repeat'
   }
 }
