@@ -5,14 +5,10 @@ import Animate from 'react-move/Animate'
 const element = React.createElement
 
 const styles = {
-  container: {
-    // display: 'inline-block'
-  },
   logo: {
     float: 'left',
     height: 100,
     margin: 10,
-
   },
   title: {
     color: 'white',
@@ -36,7 +32,6 @@ const styles = {
     letterSpacing: 1
   }
 }
-
 
 export default props => (
   <Animate

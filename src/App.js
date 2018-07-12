@@ -9,13 +9,19 @@ import {
   UPDATE_NAVBAR_OPACITY,
   UPDATE_SCROLL_POSITION_Y,
   UPDATE_MENUBAR_HEIGHT,
-  UPDATE_HEADER_TRANSLATE_Y
+  UPDATE_HEADER_TRANSLATE_Y,
+  SET_VERTICAL_SCROLL
 } from './actions/actionTypes'
 
 import './App.css'
 
 class App extends Component {
   componentDidMount(){
+
+    
+    
+    // document.getElementsByTagName('body')[0].scrollTop = -50
+
     // Hero Image Resize
     window.addEventListener('resize', ()=> {
       this.props.updateHeight(window.innerHeight)
@@ -39,7 +45,7 @@ class App extends Component {
     })
 
     console.log(this.props.scrollPositionY)
-
+    window.scrollBy(0,100)
     // tests
     let nav = document.querySelector('.navbar').getBoundingClientRect()
     console.log(nav.top)

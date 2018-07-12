@@ -1,11 +1,11 @@
-// @ts-check
-// @ts-ignore
 import React from 'react'
 import Animate from 'react-move/Animate'
-// @ts-ignore
+
 import MenuIcon from '../assets/icons/menu.svg'
-// @ts-ignore
+
 import Logo from '../assets/web/clarion-logo.png'
+
+const element = React.createElement
 
 const styles = {
   container: {
@@ -16,11 +16,25 @@ const styles = {
     width: window.innerWidth,
     position: 'fixed',
     height: 50,
+  },
+  title: {
+    fontFamily: 'Raleway, sans-serif',
+    fontWeight: 300,
+    fontSize: 20,
+    lineHeight: '50px'
+  },
+  button: {
+    float: 'right', 
+    margin: 0, 
+    border: '0px', 
+    height: '100%', 
+    width: 50, 
+    cursor: 'pointer'
   }
 }
 export default props => (
   <Animate
-    // @ts-ignore
+    
     start={{
       height: props.menubarHeight
     }}
@@ -30,19 +44,27 @@ export default props => (
     }}
   >
   {({height}) => (
-    <div style={Object.assign({}, styles.container,  {opacity: height, width: props.width})}>
 
-      <span style={{float: 'Left', margin:10 }}>
-        <img src={Logo} height={30} alt=''/>
-        
-      </span>
-      <span style={{fontFamily: 'Raleway, sans-serif', fontWeight: 300, fontSize: 20, lineHeight: '50px'}}>Clarion Inn & Suites</span>
-      <span style={{fontFamily: 'Raleway, sans-serif', fontWeight: 300, fontSize: 20, lineHeight: '50px'}}> of New Hope</span>
-
-        <button style={{float: 'right', margin: 0, border: '0px', height: '100%', width: 50, cursor: 'pointer'}} className='menu-icon'>
-          <img src={MenuIcon} height={15} alt=''/>
-        </button>
-    </div>
+    element('div',
+      {style: Object.assign({}, styles.container, {opacity: height, width: props.width})},
+      element('span',
+        {style: {float: 'left', margin: 10}},
+        element('img',
+          {src: Logo, height: 30, alt: ''}
+        )
+      ),
+      element('span',
+        {style: styles.title},
+        "Clarion Inn & Suites of New Hope"
+      ),
+      element('button',
+        {style: styles.button, className: 'menu-icon'},
+        element('img',
+          {src: MenuIcon, height: 15, alt: ''}
+        )
+      )
+    )
+ 
   )}
   </Animate>
 )

@@ -1,4 +1,3 @@
-// @ts-check
 import React from 'react'
 import Animate from 'react-move/Animate'
 
@@ -12,6 +11,7 @@ import Discover from '../assets/icons/discover.svg'
 
 // import { cubicOut } from 'd3-ease'
 
+const element = React.createElement
 
 const styles = {
   container: {
@@ -38,17 +38,30 @@ const styles = {
   navlink: {
     gridArea: 'navlink',
     gridTemplateAreas: 'navlink'
+  },
+  navDiv: {
+    display: 'inline-block', 
+    float: 'left', 
+    color: 'rgb(250,226,173)',
+    fontFamily: 'Raleway, sans-serif',
+    fontSize: 18,
+    textAlign: 'center',
+    cursor: 'pointer'
+  },
+  navItem: {
+    display: 'flex', alignItems: 'center', justifyContent: 'center'
   }
 }
 
-const arr = [{name:'Rooms & Suites', icon: Bed}, {name:'Eat & Drink', icon: Eat}, {name: 'Amenities', icon: Amenities}, {name: 'Events', icon: Event}, {name: 'Groups', icon: Group}, {name: 'Discover', icon: Discover}]
+const navbarItems = [{name:'Rooms & Suites', icon: Bed}, {name:'Eat & Drink', icon: Eat}, {name: 'Amenities', icon: Amenities}, {name: 'Events', icon: Event}, {name: 'Groups', icon: Group}, {name: 'Discover', icon: Discover}]
 
 export default props => (
   <Animate
     // @ts-ignore
     start={{
       height: 0,
-      opacity: -.5    }}
+      opacity: -.5 
+    }}
     update={{
       height: [props.navbarHeight],
       opacity: [props.navbarOpacity],
@@ -56,48 +69,31 @@ export default props => (
     }}
   >
   {({height, opacity})=> (
-    <div 
-      style={Object.assign(
-        {}, styles.container, 
-        { top: props.height - props.height * height, 
-          height: props.height * height, 
-          width: props.width,
-          opacity: opacity 
-        })
-      }
-      className='navbar'
-    >
 
-      <div style={{height: '100%'}} >
+    element('div',
+      {style: Object.assign({}, styles.container, 
+        {top: props.height-props.height*height, height: props.height*height, width: props.width, opacity: opacity}), className: "navbar"},
+      element('div',
+        {style: {height: '100%'}},
         
-        {arr.map(item => (
-          <div 
-            key={item.name}
-            style={Object.assign({}, {
-              display: 'inline-block', 
-              float: 'left', 
-              width: props.width / arr.length, 
-              color: 'rgb(250,226,173)',
-              fontFamily: 'Raleway, sans-serif',
-              fontSize: 18,
-              textAlign: 'center',
-              lineHeight: props.height * height + 'px',
-              cursor: 'pointer'
-              // textDecoration: 'underline'
-              // height: '100%',
-              // paddingTop: height / 2,
-            })}
-          >
-            
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className='navbar-item'>
-              <img src={item.icon} alt='' height={30} style={{position: 'absolute', marginTop: -30}}/>
-              <span style={{paddingTop: 20, fontFamily: 'Playfair Display SC, serif'}}>{item.name}</span>
-            </div>
-            
-          </div>
-        ))}
-      </div>
-    </div>
+        navbarItems.map(item => (
+          element('div',
+            {key: item.name, style: Object.assign({}, styles.navDiv, {width: props.width / navbarItems.length, lineHeight: props.height * height + 'px'})},
+            element('div',
+              {style: styles.navItem, className: 'navbar-item', onClick: ()=> window.scrollBy(0,props.height+300)},
+              element('img',
+                {src: item.icon, height: 30, style: {position: 'absolute', marginTop: -30}}
+              ),
+              element('span',
+                {style: {paddingTop: 20, fontFamily: 'Playfair Display SC, serif'}},
+                item.name
+              )
+            )
+          )
+        )) // map navbarItems
+      )
+    )
+   
   )}
   </Animate>
 )
