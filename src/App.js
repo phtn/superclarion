@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Hero from './components/hero'
 import Midbar from './components/midbar'
+import Rooms from './components/rooms'
 import { connect } from 'react-redux'
 import {
   UPDATE_HEIGHT,
@@ -10,7 +11,7 @@ import {
   UPDATE_SCROLL_POSITION_Y,
   UPDATE_MENUBAR_HEIGHT,
   UPDATE_HEADER_TRANSLATE_Y,
-  SET_VERTICAL_SCROLL
+  TOGGLE_ROOMS_NAVBAR
 } from './actions/actionTypes'
 
 import './App.css'
@@ -38,17 +39,19 @@ class App extends Component {
     
 
     window.addEventListener('scroll', ()=> {
+      // console.log(window.scrollY)
       this.props.updateScrollPositionY(window.scrollY)
       window.scrollY >= 300 ? this.toggleNavbar(0,0) : window.innerWidth > 800 ? this.toggleNavbar(.15,1) : this.toggleNavbar(0,0)
       window.scrollY >= 300 ? this.props.updateMenubarHeight(1) : window.innerWidth < 800 ? this.props.updateMenubarHeight(1) : this.props.updateMenubarHeight(0)
+      window.scrollY >= 1000 ? this.props.toggleRoomsNavbar(1) : this.props.toggleRoomsNavbar(0)
       // this.toggleDesktopView()
     })
 
-    console.log(this.props.scrollPositionY)
-    window.scrollBy(0,100)
+    // console.log(this.props.scrollPositionY)
+    // window.scrollBy(0,100)
     // tests
     let nav = document.querySelector('.navbar').getBoundingClientRect()
-    console.log(nav.top)
+    // console.log(nav.top)
   }
 
   toggleNavbar(height, opacity){
@@ -87,7 +90,9 @@ class App extends Component {
 
         <Midbar />
 
-        <div style={{height: this.props.height, backgroundColor: '#333'}}></div>
+        <div style={{height: this.props.height, backgroundColor: '#333'}}>
+          <Rooms width={this.props.width} height={this.props.height} navbarHeight={this.props.roomsNavbar}/>
+        </div>
       </div>
     );
   }
@@ -100,7 +105,8 @@ const mapStateToProps = (state) => ({
   navbarOpacity: state.navbarOpacity,
   scrollPositionY: state.scrollPositionY,
   menubarHeight: state.menubarHeight,
-  headerTranslateY: state.headerTranslateY
+  headerTranslateY: state.headerTranslateY,
+  roomsNavbar: state.roomsNavbar
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -110,7 +116,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateNavbarOpacity: (payload) => dispatch({type: UPDATE_NAVBAR_OPACITY, payload}),
   updateScrollPositionY: (payload) => dispatch({type: UPDATE_SCROLL_POSITION_Y, payload}),
   updateMenubarHeight: (payload) => dispatch({type: UPDATE_MENUBAR_HEIGHT, payload}),
-  updateHeaderTranslateY: (payload) => dispatch({type: UPDATE_HEADER_TRANSLATE_Y, payload})
+  updateHeaderTranslateY: (payload) => dispatch({type: UPDATE_HEADER_TRANSLATE_Y, payload}),
+  toggleRoomsNavbar: (payload) => dispatch({type: TOGGLE_ROOMS_NAVBAR, payload})
 })
 
 
